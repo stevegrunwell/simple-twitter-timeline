@@ -1,0 +1,3 @@
+[submodule "simpletest"]
+	path = simpletest
+	url = https://github.com/lox/simpletest

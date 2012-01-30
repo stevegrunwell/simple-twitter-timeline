@@ -1,0 +1,5 @@
+# .gitignore file for SimpleTwitterTimeline
+tests/simpletest/*
+tests/tweetcache-test.json
+
+# You should also ignore the tweet cache files!
