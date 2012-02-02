@@ -4,4 +4,11 @@ There are a ton of Twitter classes out there. Some simply return tweets and othe
 
 There are a number of filters built into the class:
 * Link Parser: Automatically create `<a></a>` elements from links in tweets
-* Profanity Filter: Automatically censor blacklisted words/profanity
+* Profanity Filter: Automatically censor blacklisted words/profanity (not yet complete)
+
+## Roadmap
+
+* Write more tests!
+* Finish the profanity filter
+* Complete documentation
+* Additional modules?
