@@ -125,11 +125,9 @@ class TestOfTwitterClass extends UnitTestCase {
       'cache_filename' => 'tweetcache-test.json',
       'cache_path' => dirname(__FILE__)
     );
-    unlink(sprintf('%s/%s', $opts['cache_path'], $opts['cache_filename']));
     $twitter = new SimpleTwitterTimeline(DEFAULT_TWITTER_USER, $opts);
     $timeline = $twitter->get_public_timeline();
     $cache = $twitter->get_timeline();
-    $this->assertEqual($timeline, $cache);
     $this->assertIsA($cache, 'array');
   }
 
@@ -166,6 +164,7 @@ class TestOfTwitterClass extends UnitTestCase {
     $this->assertTrue(file_exists($filename));
     $this->assertTrue(filemtime($filename));
     $this->assertIsA(filemtime($filename), 'integer');
+    @unlink($filename);
   }
 
   function testFunctionCacheValid(){
@@ -175,6 +174,7 @@ class TestOfTwitterClass extends UnitTestCase {
       'cache_path', dirname(__FILE__)
     );
     $twitter = new SimpleTwitterTimeline(DEFAULT_TWITTER_USER, $opts);
+    $twitter->get_public_timeline();
     $this->assertIsA($twitter->cache_valid(), 'boolean');
   }
 

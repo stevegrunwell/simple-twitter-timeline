@@ -31,6 +31,7 @@ class SimpleTwitterTimeline {
    * use_cache: (bool) Use timeline caching? (default: false)
    * cache_filename: (str) The filename to use for the cache (default: tweets-{username}.json
    * cache_path: (str) Where to store the cache file (default: dirname(__FILE__))
+   * cache_expiry: (int) Number of seconds before a cache is considered invalid
    *
    * @param str $username Twitter handle/username
    * @param array $opts Array of options
@@ -50,7 +51,8 @@ class SimpleTwitterTimeline {
       'profanity_whitelist' => false,
       'use_cache' => false,
       'cache_filename' => sprintf('tweetcache-%s.json', $this->get_username()),
-      'cache_path' => dirname(__FILE__)
+      'cache_path' => dirname(__FILE__),
+      'cache_expiry' => 60
     );
     $this->opts = array_merge($default_opts, $opts);
     return;
@@ -156,7 +158,7 @@ class SimpleTwitterTimeline {
   public function get_timeline(){
 
     // Determine if we're using the cached version or making an API call
-    if( !$this->get_opt('use_cache') || $this->cache_valid() ){
+    if( !$this->get_opt('use_cache') || !$this->cache_valid() ){
       $tweets = $this->get_public_timeline();
 
       // TODO: Apply filters
@@ -184,7 +186,7 @@ class SimpleTwitterTimeline {
     $url .= sprintf('&exclude_replies=%d',$this->get_opt('exclude_replies'));
 
     if( $json = file_get_contents($url) ){
-      $feed = json_decode($json, false);
+      $feed = json_decode($json, true);
     }
     return $feed;
   }
@@ -195,8 +197,9 @@ class SimpleTwitterTimeline {
    */
   public function get_tweet_cache(){
     $file = sprintf('%s/%s', $this->get_opt('cache_path'), $this->get_opt('cache_filename'));
-    if( file_exists($file) && $cache = file_get_contents($file) ){
-      return json_decode($cache, false);
+    if( file_exists($file) ){
+      $cache = file_get_contents($file, true);
+      return json_decode($cache, true);
     } else {
       return false;
     }
@@ -223,8 +226,8 @@ class SimpleTwitterTimeline {
    * @return bool
    */
   public function cache_valid(){
-    // TODO: Apply some logic here
-    return true;
+    $file = sprintf('%s/%s', $this->get_opt('cache_path'), $this->get_opt('cache_filename'));
+    return ( file_exists($file) && filemtime($file) + $this->get_opt('cache_expiry', 60) <= time() );
   }
 
 /** Tweet filters */
