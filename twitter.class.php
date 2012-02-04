@@ -224,7 +224,7 @@ class SimpleTwitterTimeline {
    */
   public function save_tweet_cache($tweets){
     $file = sprintf('%s/%s', $this->get_opt('cache_path'), $this->get_opt('cache_filename'));
-    if( $fh = fopen($file, 'a') ){
+    if( $fh = fopen($file, 'w') ){
       fwrite($fh, json_encode($tweets));
       fclose($fh);
       return true;
