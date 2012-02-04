@@ -210,7 +210,8 @@ class SimpleTwitterTimeline {
     $file = sprintf('%s/%s', $this->get_opt('cache_path'), $this->get_opt('cache_filename'));
     if( file_exists($file) ){
       $cache = file_get_contents($file, true);
-      return json_decode($cache, true);
+      $tweets = json_decode($cache, true);
+      return ( is_array($tweets) ? $tweets : array() );
     } else {
       trigger_error('Unable to load tweet cache', E_USER_WARNING);
       return array(); // Better an empty array than false (which would break a foreach loop)
