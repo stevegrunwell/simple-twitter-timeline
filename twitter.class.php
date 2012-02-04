@@ -161,14 +161,25 @@ class SimpleTwitterTimeline {
     if( !$this->get_opt('use_cache') || !$this->cache_valid() ){
       $tweets = $this->get_public_timeline();
 
-      // TODO: Apply filters
+      foreach( $tweets as $key=>$tweet ){
+
+        // Apply filters - method name must match option name for this approach to work
+        // If needed, it can become method => option later
+        foreach( array('parse_links', 'profanity_filter') as $filter ){
+          if( $this->get_opt($filter) ){
+            $tweet['text'] = $this->$filter($tweet['text']);
+          }
+        }
+
+        $tweets[$key] = $tweet;
+      }
 
       // Save the cache
       if( $this->get_opt('use_cache') ){
         $this->save_tweet_cache($tweets);
       }
 
-    // Use the cache
+    // Use the cached version
     } else {
       $tweets = $this->get_tweet_cache();
     }
