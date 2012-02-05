@@ -34,7 +34,7 @@ The following example will grab the five latest tweets from $username's public t
 
 ## Settings
 
-Below is a list of all available options that can be passed as part of the $args array:
+Below is a list of all available options that can be passed as part of the `$args` array:
 
 **exclude_replies**: (bool) Don't count tweets that are replies to other tweets (according to Twitter) (default: false)
 
@@ -60,9 +60,9 @@ Below is a list of all available options that can be passed as part of the $args
 
 **use_cache**: (bool) Use timeline caching? (default: false)
 
-**cache_filename**: (str) The filename to use for the cache (default: tweets-{username}.json
+**cache_filename**: (str) The filename to use for the cache (default: `tweets-{username}.json`)
 
-**cache_path**: (str) Where to store the cache file (default: dirname(__FILE__))
+**cache_path**: (str) Where to store the cache file (default: `dirname(__FILE__)`)
 
 **cache_expiry**: (int) Number of seconds before a cache is considered invalid
 
