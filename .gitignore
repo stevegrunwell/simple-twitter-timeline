@@ -3,3 +3,4 @@ tests/simpletest/*
 tests/tweetcache-test.json
 
 # You should also ignore the tweet cache files!
+tweetcache-stevegrunwell.json # used in example.php
