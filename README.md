@@ -9,7 +9,7 @@ There are a number of filters built into the class:
 
 ## Usage
 
-The following example will grab the five latest tweets from $username's public timeline (excluding replies to other users), auto-parse the links, then cache the results in `my-tweet-cache.json`.
+The following example will grab the five latest tweets from `$username`'s public timeline (excluding replies to other users), auto-parse the links, then cache the results in `my-tweet-cache.json`.
 
     <?php
       $username = 'YOUR TWITTER HANDLE';
