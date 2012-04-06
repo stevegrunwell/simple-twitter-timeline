@@ -240,7 +240,7 @@ class SimpleTwitterTimeline {
    */
   public function cache_valid(){
     $file = sprintf('%s/%s', $this->get_opt('cache_path'), $this->get_opt('cache_filename'));
-    return ( file_exists($file) && filemtime($file) + $this->get_opt('cache_expiry', 60) <= time() );
+    return ( file_exists($file) && filemtime($file) + $this->get_opt('cache_expiry', 60) > time() );
   }
 
 /** Tweet filters */
